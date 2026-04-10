@@ -31,8 +31,26 @@ function runCycle() {
     btnRecover.click();
     sendLog('Clic sur "Récupérer oeuf(s)"');
 
-    // Attendre que la modale apparaisse
+    // Attendre que la modale "Éclosion !" apparaisse
     setTimeout(() => {
+      // Étape 2a : cliquer sur "OK" pour fermer la modale d'éclosion
+      const btnOk = findOkButton();
+      if (btnOk) {
+        btnOk.click();
+        sendLog('Clic sur "OK" (modale Éclosion)');
+
+        // Étape 2b : attendre puis cliquer sur "Redéposer"
+        setTimeout(() => {
+          const btnRedeposit = findRedepositButton();
+          if (btnRedeposit) {
+            btnRedeposit.click();
+            sendLog('Clic sur "Redéposer"');
+          }
+        }, 800);
+        return;
+      }
+
+      // Cas : pas de modale OK, chercher directement "Redéposer"
       const btnRedeposit = findRedepositButton();
       if (btnRedeposit) {
         btnRedeposit.click();
